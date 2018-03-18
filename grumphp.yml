@@ -1,0 +1,12 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+      phplint: ~
+      phpcs:
+        standard: PSR1,PSR2
+        ignore_patterns: 
+          - app/AppKernel.php
+          - var/SymfonyRequirements.php
+          - web/config.php
+      composer: ~

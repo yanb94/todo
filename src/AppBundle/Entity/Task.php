@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -39,6 +40,13 @@ class Task
      * @ORM\Column(type="boolean")
      */
     private $isDone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",nullable=true)
+     * @Gedmo\Blameable(on="create")
+     */
+    private $author;
 
     public function __construct()
     {
@@ -89,5 +97,17 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    public function setAuthor(\AppBundle\Entity\User $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }
